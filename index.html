@@ -1886,7 +1886,13 @@
                 
                 <ul class="nav-menu" id="navMenu">
                     <li><a onclick="navigateTo('accueil')" data-page="accueil" class="active">🏠 Accueil</a></li>
-                    <li><a onclick="navigateTo('presentation')" data-page="presentation">👤 Présentation</a></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle">👤 Présentation <span class="dropdown-arrow">▼</span></a>
+                        <div class="dropdown-menu">
+                            <a onclick="navigateTo('presentation')" data-page="presentation">Présentation</a>
+                            <a onclick="navigateTo('mon-entreprise')" data-page="mon-entreprise">Mon Entreprise</a>
+                        </div>
+                    </li>
                     <li class="dropdown">
                         <a class="dropdown-toggle">💼 Projets <span class="dropdown-arrow">▼</span></a>
                         <div class="dropdown-menu">
@@ -2278,6 +2284,24 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MON ENTREPRISE -->
+    <div id="mon-entreprise" class="page">
+        <div class="container">
+            <div class="page-header" data-aos="fade-down">
+                <h1 class="page-title">Mon Entreprise</h1>
+                <p class="page-subtitle">Présentation rapide de l'entreprise où je suis en alternance</p>
+            </div>
+
+            <div class="about-text" data-aos="fade-up">
+                <h3>À propos de l'entreprise</h3>
+                <p><strong>Nom :</strong> Mon Entreprise</p>
+                <p><strong>Secteur :</strong> (ex. Services informatiques, maintenance, etc.)</p>
+                <p><strong>Localisation :</strong> Gémenos / Région</p>
+                <p>Je travaille au sein de cette entreprise en alternance. Ici vous pouvez décrire rapidement l'activité, les services ou produits principaux, la taille de l'équipe et le rôle que j'occupe (ex. administration systèmes, support, réseau).</p>
             </div>
         </div>
     </div>
@@ -3003,13 +3027,17 @@
                 activeLink.classList.add('active');
             }
 
-            // Update dropdown active state
-            const dropdownToggle = document.querySelector('.dropdown-toggle');
-            if (pageName === 'projets-pro' || pageName === 'projets-scolaire') {
-                dropdownToggle.classList.add('active');
-            } else {
-                dropdownToggle.classList.remove('active');
-            }
+            // Update dropdown active state for all dropdowns
+            const dropdowns = document.querySelectorAll('.dropdown');
+            dropdowns.forEach(drop => {
+                const toggle = drop.querySelector('.dropdown-toggle');
+                const links = drop.querySelectorAll('.dropdown-menu a[data-page]');
+                const hasActive = Array.from(links).some(l => l.getAttribute('data-page') === pageName);
+                if (toggle) {
+                    if (hasActive) toggle.classList.add('active');
+                    else toggle.classList.remove('active');
+                }
+            });
 
             // Close mobile menu if open
             const navMenu = document.getElementById('navMenu');
