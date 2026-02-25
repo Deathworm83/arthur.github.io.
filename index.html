@@ -1191,6 +1191,40 @@
             color: var(--highlight-color);
         }
 
+        .import-schema-btn {
+            margin-top: 1rem;
+            padding: 0.75rem 1.25rem;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            color: var(--text-primary);
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+            font-size: 1rem;
+        }
+
+        .import-schema-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        .import-schema-btn:active {
+            transform: translateY(0);
+        }
+
+        .project-image {
+            position: relative;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
         .project-links {
             display: flex;
             gap: 1rem;
@@ -2450,7 +2484,9 @@
                 </div>
 
                 <div class="project-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="project-image">🌐</div>
+                    <div class="project-image">
+                        <img src="infra.png" alt="Schéma d'infrastructure réseau">
+                    </div>
                     <div class="project-content">
                         <span class="project-tag">TP Réseaux</span>
                         <h3>Architecture Réseau d'Entreprise Segmentée</h3>
