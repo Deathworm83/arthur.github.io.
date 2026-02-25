@@ -1214,6 +1214,96 @@
             transform: translateY(0);
         }
 
+        .view-schema-btn {
+            margin-top: 1rem;
+            padding: 0.75rem 1.25rem;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            color: var(--text-primary);
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+            font-size: 1rem;
+        }
+
+        .view-schema-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        .view-schema-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Modal Styles */
+        .schema-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .schema-modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .schema-modal-content {
+            max-width: 90vw;
+            max-height: 90vh;
+            position: relative;
+            animation: zoomIn 0.3s ease-in-out;
+        }
+
+        .schema-modal-content img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .schema-modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            color: var(--text-primary);
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 10px 15px;
+            border-radius: 10px;
+            transition: var(--transition);
+        }
+
+        .schema-modal-close:hover {
+            background: rgba(0, 0, 0, 0.9);
+            transform: scale(1.1);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
         .project-image {
             position: relative;
         }
@@ -3345,6 +3435,36 @@
             });
         });
 
+        // ==================== SCHEMA MODAL ====================
+        function openSchemaModal(imagePath) {
+            const modal = document.getElementById('schemaModal');
+            const modalImg = document.getElementById('modalSchemaImage');
+            modalImg.src = imagePath;
+            modal.classList.add('active');
+        }
+
+        function closeSchemaModal() {
+            const modal = document.getElementById('schemaModal');
+            modal.classList.remove('active');
+        }
+
+        // Close modal when clicking outside the image
+        const modal = document.getElementById('schemaModal');
+        if (modal) {
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    closeSchemaModal();
+                }
+            });
+        }
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeSchemaModal();
+            }
+        });
+
         // ==================== PERFORMANCE OPTIMIZATION ====================
         // Lazy loading for images
         if ('IntersectionObserver' in window) {
@@ -3364,5 +3484,13 @@
             });
         }
     </script>
+
+    <!-- Schema Modal -->
+    <div id="schemaModal" class="schema-modal">
+        <div class="schema-modal-content">
+            <img id="modalSchemaImage" src="" alt="Schéma d'infrastructure en détail">
+            <button class="schema-modal-close" onclick="closeSchemaModal()">✕</button>
+        </div>
+    </div>
 </body>
 </html>
